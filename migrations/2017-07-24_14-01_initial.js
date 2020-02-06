@@ -1,6 +1,9 @@
 exports.up = function(knex) {
   return knex.schema.createTable("locations", (table) => {
-    table.increments().index();
+    table
+      .increments()
+      .index()
+      .primary();
 
     table.float("latitude");
 
@@ -14,7 +17,7 @@ exports.up = function(knex) {
     table.text("exit_number");
 
     table.text("zip_code");
-    table.text("store_id");
+    table.text("store_id").unique();
 
     table.text("type");
 
