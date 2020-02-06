@@ -12,6 +12,10 @@ export default function MaryListItem(props) {
 
   const [selectedCityNames, setCityNames] = useState([]);
   const [highways, setHighways] = useState([]);
+  //WORK IN PROGRESS
+  const [selectedVal, setVal] = useState("");
+  const [whatevs, setWhatevs] = useState("");
+  //WIP END
 
   let cities = [];
   let cityNames = [];
@@ -73,6 +77,31 @@ export default function MaryListItem(props) {
     return allHighwayNames;
   };
 
+  //selectedWhatevs
+  let selectedWhatevs = "";
+
+  const selectionFunc = (name) => {
+    const resultsArr = [];
+    props.locations.map((obj) => {
+      if (obj.state === name) {
+        console.log("You selected a State");
+        resultsArr.push(obj);
+      }
+      if (obj.city === name) {
+        console.log("You selected a City");
+        resultsArr.push(obj);
+      }
+      if (obj.highway === name) {
+        console.log("You selected a Highway");
+        resultsArr.push(obj);
+      }
+    });
+
+    console.log("Results", resultsArr);
+    selectedWhatevs = resultsArr;
+    return resultsArr;
+  };
+
   /*
 AHHH IT WORKS 
   cityByState2("MN");
@@ -113,6 +142,9 @@ AHHH IT WORKS
           cityByState2(e.target.value);
           //then setCityNames STATE to allCityNames
           setCityNames(allCityNames);
+          setVal(e.target.value);
+          selectionFunc(e.target.value);
+          setWhatevs(selectedWhatevs);
         }}
       >
         <option value="default">State</option>
@@ -177,6 +209,8 @@ AHHH IT WORKS
           console.log(allHighwayNames);
           //then set the highway state to match that
           setHighways(allHighwayNames);
+          setVal(e.target.value);
+          selectionFunc(e.target.value);
         }}
       >
         <option value="City">City</option>
@@ -193,6 +227,8 @@ AHHH IT WORKS
         className="select"
         onBlur={(e) => {
           console.log("THIS IS FOR THE HIGHWAYS...which I had functional");
+          setVal(e.target.value);
+          selectionFunc(e.target.value);
         }}
       >
         <option value="Highway">Highway</option>
@@ -204,6 +240,9 @@ AHHH IT WORKS
           );
         })}
       </select>
+      <div>Test Section</div>
+      <div>You selected: {selectedVal}</div>
+      <div>Results:{}</div>
     </div>
   );
 }
