@@ -1,12 +1,5 @@
 /* eslint-disable no-use-before-define */
-
-// - getOptionLabel is updating the state 3 times
-import React, { useState } from "react";
-import TextField from "@material-ui/core/TextField";
-import Autocomplete from "@material-ui/lab/Autocomplete";
-import parse from "autosuggest-highlight/parse";
-import match from "autosuggest-highlight/match";
-
+/*
 export default function ComboBox() {
   const [selectedState, updateState] = useState("");
   const [selectedCity, updateCity] = useState("");
@@ -128,6 +121,9 @@ export default function ComboBox() {
     </div>
   );
 }
+*/
+
+/*
 const usStates = [
   {
     abbr: "AL",
@@ -480,3 +476,4 @@ const usStates = [
     long: "-104.802042",
   },
 ];
+*/

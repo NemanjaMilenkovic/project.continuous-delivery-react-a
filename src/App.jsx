@@ -2,7 +2,8 @@ import React from "react";
 import logo from "./logo.svg";
 import "./App.css";
 import Map from "./containers/Map";
-import SearchByLocation from "./components/SearchByLocation";
+//import SearchByLocation from "./components/SearchByLocation";
+import MaryTest from "./components/MaryComp";
 
 export default function App() {
   return (
@@ -11,8 +12,9 @@ export default function App() {
         <img src={logo} className="App-logo" alt="logo" />
         <h2>:)</h2>
       </div>
-      <SearchByLocation />
+
       <Map id="map" />
+      <MaryTest />
     </div>
   );
 }
