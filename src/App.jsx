@@ -1,19 +1,17 @@
 import React from "react";
-
 import logo from "./logo.svg";
 import "./App.css";
 import Map from "./containers/Map";
+import SearchByLocation from "./components/SearchByLocation";
 
 export default function App() {
   return (
     <div className="App" style={{ height: "100%" }}>
       <div className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
-        <h2>Potato Build 2</h2>
+        <h2>:)</h2>
       </div>
-      <p className="App-intro">
-        To get started, edit <code>src/App.jsx</code> and save to reload.
-      </p>
+      <SearchByLocation />
       <Map id="map" />
     </div>
   );
