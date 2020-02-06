@@ -6,6 +6,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     getLocations: () => {
       const res = getLocations();
+      // console.log("res", res);
       dispatch(res);
     },
   };
@@ -17,7 +18,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Map);
+export default connect(mapStateToProps, mapDispatchToProps)(Map);

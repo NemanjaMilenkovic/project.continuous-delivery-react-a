@@ -4,15 +4,16 @@ import TextField from "@material-ui/core/TextField";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import parse from "autosuggest-highlight/parse";
 import match from "autosuggest-highlight/match";
+import PropTypes from "prop-types";
 
-export default function ComboBox() {
+export default function ComboBox(locations, getLocations) {
   return (
     <div>
       <Autocomplete
         id="select-state"
         style={{ width: 300, display: "inline-block", margin: "1em" }}
         options={usStates}
-        getOptionLabel={(option) => option.name}
+        getOptionLabel={(option) => option.abbr}
         renderInput={(params) => (
           <TextField
             {...params}
@@ -24,14 +25,7 @@ export default function ComboBox() {
         )}
         renderOption={(option, { inputValue }) => {
           const matches = match(option.name, inputValue);
-
           const parts = parse(option.name, matches);
-
-          //   for (const state of option) {
-          //     if (inputValue === state.name) {
-          //       console.log("found");
-          //     }
-          //   }
 
           return (
             <div>
@@ -49,6 +43,7 @@ export default function ComboBox() {
       />
       <Autocomplete
         id="select-city"
+        // disabled="true"
         style={{ width: 300, display: "inline-block", margin: "1em" }}
         options={usStates}
         getOptionLabel={(option) => option.name}
@@ -79,6 +74,7 @@ export default function ComboBox() {
           );
         }}
       />
+
       <Autocomplete
         id="select-highway"
         style={{ width: 300, display: "inline-block", margin: "1em" }}
@@ -116,8 +112,8 @@ export default function ComboBox() {
 }
 const usStates = [
   {
-    abbr: "AL",
-    name: "Alabama",
+    name: "AL",
+    namse: "Alabama",
     capital: "Montgomery",
     lat: "32.361538",
     long: "-86.279118",
