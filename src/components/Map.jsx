@@ -19,7 +19,6 @@ const MyMap = withGoogleMap((props) => (
     ))}
   </GoogleMap>
 ));
-
 // We use object destructuring here to shorten our code
 export default function Map({ locations, getLocations }) {
   const changeLength = locations.length <= 0;
