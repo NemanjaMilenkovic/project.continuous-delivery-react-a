@@ -41,7 +41,7 @@ export default function Map({ locations, getLocations }) {
   );
 }
 
-// This looks new? Can you guess what this does?
+// This looks new? Can you guess what this does? no
 Map.propTypes = {
   getLocations: PropTypes.func.isRequired,
   locations: PropTypes.array.isRequired,

@@ -7,9 +7,12 @@ export async function getMarkers() {
 
   const markers = locations.map((l) => {
     //{req.}
-    console.log("I am L", l);
+    // console.log("I am L", l);
     if (true) {
       return {
+        city: l.city,
+        state: l.state,
+        highway: l.highway,
         position: {
           lat: l.latitude,
           lng: l.longitude,
@@ -21,4 +24,15 @@ export async function getMarkers() {
     return [];
   });
   return markers;
+}
+
+export async function getInputs() {
+  const { data: locations } = await axios.get("/api/locations");
+  const citiesAndHighways = locations.map((l) => {
+    return {
+      city: l.city,
+      highway: l.highway,
+    };
+  });
+  return citiesAndHighways;
 }

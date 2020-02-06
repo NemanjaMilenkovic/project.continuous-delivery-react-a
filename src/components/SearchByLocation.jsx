@@ -1,30 +1,79 @@
 /* eslint-disable no-use-before-define */
 
 // - getOptionLabel is updating the state 3 times
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import TextField from "@material-ui/core/TextField";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import parse from "autosuggest-highlight/parse";
 import match from "autosuggest-highlight/match";
+import { Provider, useSelector } from "react-redux";
 
 export default function ComboBox() {
-  const [selectedState, updateState] = useState("s");
+  const [selectedState, updateState] = useState("");
   const [selectedCity, updateCity] = useState("");
   const [selectedHighway, updateHighway] = useState("");
+  const [allCities, setCities] = useState([]);
+  const [allAbbr, setAbbr] = useState("");
 
   // function getSelectedState() {
   //   return selectedState;
   // }
 
+  let cities = [];
+
+  const store = useSelector((store) => store);
+
+  useEffect(() => {
+    async function populateCities(state) {
+      state = "AL";
+      const cities = await store.locations.filter((el) => {
+        /*
+        if (el.state === state) {
+          cities.push({ city: el.city });
+        }*/
+        return el.state === state;
+      });
+      console.log("Selected cities", cities);
+      setCities(cities);
+      return cities;
+    }
+    const cityUpdate = populateCities();
+    setCities(cityUpdate);
+  }, []);
+
+  // function populateCities(state) {
+  //   cities = store.locations.filter((el) => {
+  //     if (el.state === state) {
+  //       return { name: el.city };
+  //     }
+  //   });
+  //   console.log("Selected cities", cities);
+  //   // setCities(cities);
+  //   return cities;
+  // }
+
   return (
     <div>
+      <div className="cities-list">
+        <ul>
+          {cities.map((city, index) => {
+            return (
+              <div key={index}>
+                Ahhh<li key={index}>{city}</li>
+              </div>
+            );
+          })}
+        </ul>
+      </div>
+
       <Autocomplete
         id="select-state"
         style={{ width: 300, display: "inline-block", margin: "1em" }}
         options={usStates}
         getOptionLabel={(state) => {
           if (state.name) {
-            updateState(state.name);
+            updateState(state.abbr);
+            // populateCities(state.abbr);
           }
           return selectedState;
         }}
@@ -58,13 +107,14 @@ export default function ComboBox() {
       />
       <Autocomplete
         id="select-city"
+        disabled={!selectedState}
         style={{ width: 300, display: "inline-block", margin: "1em" }}
-        options={usStates}
-        getOptionLabel={(city) => {
-          if (city.name) {
-            updateCity(city.name);
-          }
-          return selectedCity;
+        options={cities}
+        getOptionLabel={(cities) => {
+          // if (city.city) {
+          //   updateCity(city.city);
+          // }
+          return cities.name;
         }}
         renderInput={(params) => (
           <TextField
@@ -95,6 +145,7 @@ export default function ComboBox() {
       />
       <Autocomplete
         id="select-highway"
+        disabled={!selectedCity}
         style={{ width: 300, display: "inline-block", margin: "1em" }}
         options={usStates}
         getOptionLabel={(highway) => {

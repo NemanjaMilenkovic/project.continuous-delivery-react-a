@@ -7,8 +7,8 @@ import { Provider, useSelector } from "react-redux";
 // const { store } = require("./index");
 
 export default function App() {
-  const store = useSelector((store) => store);
-  console.log("store :", store);
+  //
+
   return (
     <div className="App" style={{ height: "100%" }}>
       <div className="App-header">
