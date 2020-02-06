@@ -8,9 +8,13 @@ import parse from "autosuggest-highlight/parse";
 import match from "autosuggest-highlight/match";
 
 export default function ComboBox() {
-  const [selectedState, updateState] = useState("");
+  const [selectedState, updateState] = useState("s");
   const [selectedCity, updateCity] = useState("");
   const [selectedHighway, updateHighway] = useState("");
+
+  // function getSelectedState() {
+  //   return selectedState;
+  // }
 
   return (
     <div>
