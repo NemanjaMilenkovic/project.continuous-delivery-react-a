@@ -1,19 +1,30 @@
 /* eslint-disable no-use-before-define */
-import React from "react";
+
+// - getOptionLabel is updating the state 3 times
+import React, { useState } from "react";
 import TextField from "@material-ui/core/TextField";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import parse from "autosuggest-highlight/parse";
 import match from "autosuggest-highlight/match";
 import PropTypes from "prop-types";
 
-export default function ComboBox(locations, getLocations) {
+export default function ComboBox() {
+  const [selectedState, updateState] = useState("");
+  const [selectedCity, updateCity] = useState("");
+  const [selectedHighway, updateHighway] = useState("");
+
   return (
     <div>
       <Autocomplete
         id="select-state"
         style={{ width: 300, display: "inline-block", margin: "1em" }}
         options={usStates}
-        getOptionLabel={(option) => option.abbr}
+        getOptionLabel={(state) => {
+          if (state.name) {
+            updateState(state.name);
+          }
+          return selectedState;
+        }}
         renderInput={(params) => (
           <TextField
             {...params}
@@ -46,7 +57,12 @@ export default function ComboBox(locations, getLocations) {
         // disabled="true"
         style={{ width: 300, display: "inline-block", margin: "1em" }}
         options={usStates}
-        getOptionLabel={(option) => option.name}
+        getOptionLabel={(city) => {
+          if (city.name) {
+            updateCity(city.name);
+          }
+          return selectedCity;
+        }}
         renderInput={(params) => (
           <TextField
             {...params}
@@ -79,7 +95,12 @@ export default function ComboBox(locations, getLocations) {
         id="select-highway"
         style={{ width: 300, display: "inline-block", margin: "1em" }}
         options={usStates}
-        getOptionLabel={(option) => option.name}
+        getOptionLabel={(highway) => {
+          if (highway.name) {
+            updateHighway(highway.name);
+          }
+          return selectedHighway;
+        }}
         renderInput={(params) => (
           <TextField
             {...params}
@@ -92,7 +113,6 @@ export default function ComboBox(locations, getLocations) {
         renderOption={(option, { inputValue }) => {
           const matches = match(option.name, inputValue);
           const parts = parse(option.name, matches);
-
           return (
             <div>
               {parts.map((part, index) => (
