@@ -10,3 +10,5 @@ const db = knex({
 });
 
 module.exports = db;
+
+console.log(process.env.DATABASE_URL);
