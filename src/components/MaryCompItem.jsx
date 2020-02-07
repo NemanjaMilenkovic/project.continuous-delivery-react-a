@@ -2,19 +2,21 @@ import React, { useEffect, useState, Profiler } from "react";
 import axios from "axios";
 import MaryTest from "./MaryComp";
 import "../index.css";
+import RenderResults from "./RenderRes";
 
 export default function MaryListItem(props) {
-  console.log(
+  /*console.log(
     props.locations.map((obj) => {
       return obj;
     })
   );
+  */
 
   const [selectedCityNames, setCityNames] = useState([]);
   const [highways, setHighways] = useState([]);
   //WORK IN PROGRESS
   const [selectedVal, setVal] = useState("");
-  const [whatevs, setWhatevs] = useState("");
+  const [whatevs, setWhatevs] = useState([]);
   //WIP END
 
   let cities = [];
@@ -41,7 +43,7 @@ export default function MaryListItem(props) {
   function cityByState(name) {
     props.locations.map((obj) => {
       if (obj.state === name) {
-        console.log(obj);
+        //console.log(obj);
         cities.push(obj);
         return obj;
       }
@@ -69,7 +71,6 @@ export default function MaryListItem(props) {
     const resultsArr = [];
     props.locations.map((obj) => {
       if (obj.city === name) {
-        console.log("highway", obj);
         resultsArr.push(obj.highway);
       }
     });
@@ -102,15 +103,6 @@ export default function MaryListItem(props) {
     return resultsArr;
   };
 
-  /*
-AHHH IT WORKS 
-  cityByState2("MN");
-  console.log(allCityNames);
-  
-  console.log(cityByState("MN")); //IT WORKS HOLY SHIT
-  console.log(cities);
-  */
-
   return (
     /*
     <div>
@@ -136,7 +128,7 @@ AHHH IT WORKS
         onBlur={(e) => {
           cities = [];
           cityByState(e.target.value);
-          console.log("cities", cities);
+          //console.log("cities", cities);
           //most important line of code here:
           //alter allCityNames with cityByState2
           cityByState2(e.target.value);
@@ -206,7 +198,7 @@ AHHH IT WORKS
         onBlur={(e) => {
           //second most important line of code...find city's highways
           highwayByCity(e.target.value);
-          console.log(allHighwayNames);
+          //console.log(allHighwayNames);
           //then set the highway state to match that
           setHighways(allHighwayNames);
           setVal(e.target.value);
@@ -226,7 +218,6 @@ AHHH IT WORKS
       <select
         className="select"
         onBlur={(e) => {
-          console.log("THIS IS FOR THE HIGHWAYS...which I had functional");
           setVal(e.target.value);
           selectionFunc(e.target.value);
         }}
@@ -242,7 +233,14 @@ AHHH IT WORKS
       </select>
       <div>Test Section</div>
       <div>You selected: {selectedVal}</div>
-      <div>Results:{}</div>
+      <div>
+        <ul>
+          Results:
+          {whatevs.map((val, key) => {
+            return <RenderResults key={val} locations={val} />;
+          })}
+        </ul>
+      </div>
     </div>
   );
 }
