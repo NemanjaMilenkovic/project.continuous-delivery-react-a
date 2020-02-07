@@ -20,51 +20,41 @@ export default function ComboBox() {
   // }
 
   let cities = [];
+  // const sadness = ["populated"];
 
   const store = useSelector((store) => store);
 
+  /*
   useEffect(() => {
     async function populateCities(state) {
       state = "AL";
-      const cities = await store.locations.filter((el) => {
-        /*
+      await store.locations.filter((el) => {
         if (el.state === state) {
-          cities.push({ city: el.city });
-        }*/
-        return el.state === state;
+          sadness.push({ name: el.city });
+        }
       });
-      console.log("Selected cities", cities);
-      setCities(cities);
-      return cities;
+      console.log("Selected cities", sadness);
+      setCities(sadness);
     }
-    const cityUpdate = populateCities();
-    setCities(cityUpdate);
+    populateCities();
   }, []);
+*/
 
-  // function populateCities(state) {
-  //   cities = store.locations.filter((el) => {
-  //     if (el.state === state) {
-  //       return { name: el.city };
-  //     }
-  //   });
-  //   console.log("Selected cities", cities);
-  //   // setCities(cities);
-  //   return cities;
-  // }
+  function populateCities(state) {
+    cities = store.locations.filter((el) => {
+      if (el.state === state) {
+        return { name: el.city };
+      }
+    });
+    console.log("Selected cities", cities);
+
+    // setCities(cities);
+    return cities;
+  }
 
   return (
     <div>
-      <div className="cities-list">
-        <ul>
-          {cities.map((city, index) => {
-            return (
-              <div key={index}>
-                Ahhh<li key={index}>{city}</li>
-              </div>
-            );
-          })}
-        </ul>
-      </div>
+      <div className="cities-list">{populateCities()}</div>
 
       <Autocomplete
         id="select-state"
@@ -73,7 +63,7 @@ export default function ComboBox() {
         getOptionLabel={(state) => {
           if (state.name) {
             updateState(state.abbr);
-            // populateCities(state.abbr);
+            populateCities(state.abbr);
           }
           return selectedState;
         }}
@@ -129,43 +119,6 @@ export default function ComboBox() {
           const matches = match(option.name, inputValue);
           const parts = parse(option.name, matches);
 
-          return (
-            <div>
-              {parts.map((part, index) => (
-                <span
-                  key={index}
-                  style={{ fontWeight: part.highlight ? 700 : 400 }}
-                >
-                  {part.text}
-                </span>
-              ))}
-            </div>
-          );
-        }}
-      />
-      <Autocomplete
-        id="select-highway"
-        disabled={!selectedCity}
-        style={{ width: 300, display: "inline-block", margin: "1em" }}
-        options={usStates}
-        getOptionLabel={(highway) => {
-          if (highway.name) {
-            updateHighway(highway.name);
-          }
-          return selectedHighway;
-        }}
-        renderInput={(params) => (
-          <TextField
-            {...params}
-            label="Highway"
-            variant="outlined"
-            fullWidth
-            margin="normal"
-          />
-        )}
-        renderOption={(option, { inputValue }) => {
-          const matches = match(option.name, inputValue);
-          const parts = parse(option.name, matches);
           return (
             <div>
               {parts.map((part, index) => (
