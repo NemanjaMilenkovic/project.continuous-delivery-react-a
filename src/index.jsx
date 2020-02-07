@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
-import { Provider } from "react-redux";
+import { Provider, useSelector } from "react-redux";
 import thunk from "redux-thunk";
 import { createStore, compose, applyMiddleware } from "redux";
 
@@ -10,7 +10,7 @@ import reducer from "./reducers/index";
 
 const createStoreWithMiddleware = compose(applyMiddleware(thunk))(createStore);
 
-const store = createStoreWithMiddleware(reducer);
+export const store = createStoreWithMiddleware(reducer);
 
 ReactDOM.render(
   <Provider store={store}>
@@ -18,3 +18,5 @@ ReactDOM.render(
   </Provider>,
   document.getElementById("root")
 );
+
+// module.exports = { store };

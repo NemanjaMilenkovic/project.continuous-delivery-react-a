@@ -1,12 +1,15 @@
 import { connect } from "react-redux";
 import Map from "../components/Map";
-import { getLocations } from "../actions/index";
+import { getLocations, getCities } from "../actions/index";
 
 const mapDispatchToProps = (dispatch) => {
   return {
     getLocations: () => {
       const res = getLocations();
-      // console.log("res", res);
+      dispatch(res);
+    },
+    getCities: () => {
+      const res = getCities();
       dispatch(res);
     },
   };
@@ -15,6 +18,7 @@ const mapDispatchToProps = (dispatch) => {
 const mapStateToProps = (state) => {
   return {
     locations: state.locations,
+    cities: state.cities, // not sure
   };
 };
 
