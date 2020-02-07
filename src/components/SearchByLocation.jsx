@@ -1,4 +1,5 @@
 /* eslint-disable no-use-before-define */
+<<<<<<< HEAD
 
 // - getOptionLabel is updating the state 3 times
 import React, { useState, useEffect } from "react";
@@ -8,6 +9,9 @@ import parse from "autosuggest-highlight/parse";
 import match from "autosuggest-highlight/match";
 import { Provider, useSelector } from "react-redux";
 
+=======
+/*
+>>>>>>> 5b9c41b1bbef2e882c34416a3296583e67b8ae3a
 export default function ComboBox() {
   const [selectedState, updateState] = useState("");
   const [selectedCity, updateCity] = useState("");
@@ -136,6 +140,9 @@ export default function ComboBox() {
     </div>
   );
 }
+*/
+
+/*
 const usStates = [
   {
     abbr: "AL",
@@ -488,3 +495,4 @@ const usStates = [
     long: "-104.802042",
   },
 ];
+*/
