@@ -76,6 +76,39 @@ app.get("/api/locations/:latlong", async (req, res) => {
   res.send(locationLat);
 });
 
+app.get("/api/locations/:id/restaurants", async (req, res) => {
+  try {
+    const restaurants = await db
+      .select()
+      .from("restaurants")
+      .where({ store_id: req.params.id });
+
+    if (restaurants.length > 0) {
+      res.send(restaurants);
+    }
+
+    res.sendStatus(404);
+  } catch (err) {
+    console.err("No restaurants available", err);
+    res.sendStatus(500);
+  }
+});
+
+app.get("/api/locations/:abb/states", async (req, res) => {
+  try {
+    const states = await db
+      .select()
+      .from("locations")
+      .where({ state: req.params.abb });
+
+    res.send(states);
+    res.sendStatus(200);
+  } catch (err) {
+    console.err("AHHH", err);
+    res.sendStatus(500);
+  }
+});
+
 // Always return the main index.html, so react-router render the route in the client
 app.get("*", (req, res) => {
   res.sendFile(path.resolve(__dirname, "..", "build", "index.html"));
